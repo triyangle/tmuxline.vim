@@ -164,31 +164,37 @@ fun! tmuxline#util#get_colors_from_vim_statusline() abort
 endfun
 
 fun! tmuxline#util#create_theme_from_lightline(mode_palette)
+  let a:start = &termguicolors ? 0 : 2
+  let a:end = &termguicolors ? 1 : 3
+  let a:pal = a:mode_palette
   let theme = {
-        \'a' : a:mode_palette.left[s:FG][2:4],
-        \'b' : a:mode_palette.left[s:BG][2:4],
-        \'c' : a:mode_palette.middle[s:FG][2:4],
-        \'x' : a:mode_palette.middle[s:FG][2:4],
-        \'y' : a:mode_palette.right[s:BG][2:4],
-        \'z' : a:mode_palette.right[s:FG][2:4],
-        \'bg' : a:mode_palette.middle[s:FG][2:4],
-        \'cwin' : a:mode_palette.left[s:BG][2:4],
-        \'win' : a:mode_palette.middle[s:FG][2:4]}
+        \'a'    : a:pal.left[s:FG][a:start:a:end] + a:pal.left[s:FG][4:],
+        \'b'    : a:pal.left[s:BG][a:start:a:end] + a:pal.left[s:BG][4:],
+        \'c'    : a:pal.middle[s:FG][a:start:a:end] + a:pal.middle[s:FG][4:],
+        \'x'    : a:pal.middle[s:FG][a:start:a:end] + a:pal.middle[s:FG][4:],
+        \'y'    : a:pal.right[s:BG][a:start:a:end] + a:pal.right[s:BG][4:],
+        \'z'    : a:pal.right[s:FG][a:start:a:end] + a:pal.right[s:FG][4:],
+        \'bg'   : a:pal.middle[s:FG][a:start:a:end] + a:pal.middle[s:FG][4:],
+        \'cwin' : a:pal.left[s:BG][a:start:a:end] + a:pal.left[s:BG][4:],
+        \'win'  : a:pal.middle[s:FG][a:start:a:end] + a:pal.middle[s:FG][4:]}
   call tmuxline#util#try_guess_activity_color( theme )
   return theme
 endfun
 
 fun! tmuxline#util#create_theme_from_airline(mode_palette)
+  let a:start = &termguicolors ? 0 : 2
+  let a:end = &termguicolors ? 1 : 3
+  let a:pal = a:mode_palette
   let theme = {
-        \'a'    : a:mode_palette.airline_a[2:4],
-        \'b'    : a:mode_palette.airline_b[2:4],
-        \'c'    : a:mode_palette.airline_c[2:4],
-        \'x'    : a:mode_palette.airline_x[2:4],
-        \'y'    : a:mode_palette.airline_y[2:4],
-        \'z'    : a:mode_palette.airline_z[2:4],
-        \'bg'   : a:mode_palette.airline_c[2:4],
-        \'cwin' : a:mode_palette.airline_b[2:4],
-        \'win'  : a:mode_palette.airline_c[2:4]}
+        \'a'    : a:pal.airline_a[a:start:a:end] + a:pal.airline_a[4:],
+        \'b'    : a:pal.airline_b[a:start:a:end] + a:pal.airline_b[4:],
+        \'c'    : a:pal.airline_c[a:start:a:end] + a:pal.airline_c[4:],
+        \'x'    : a:pal.airline_x[a:start:a:end] + a:pal.airline_x[4:],
+        \'y'    : a:pal.airline_y[a:start:a:end] + a:pal.airline_y[4:],
+        \'z'    : a:pal.airline_z[a:start:a:end] + a:pal.airline_z[4:],
+        \'bg'   : a:pal.airline_c[a:start:a:end] + a:pal.airline_c[4:],
+        \'cwin' : a:pal.airline_b[a:start:a:end] + a:pal.airline_b[4:],
+        \'win'  : a:pal.airline_c[a:start:a:end] + a:pal.airline_c[4:]}
   call tmuxline#util#try_guess_activity_color( theme )
   return theme
 endfun
